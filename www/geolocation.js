@@ -18,6 +18,7 @@
  * under the License.
  *
 */
+cordova.define("cordova-plugin-geolocation.geolocation", function(require, exports, module) {
 
 var argscheck = require('cordova/argscheck'),
     utils = require('cordova/utils'),
@@ -75,18 +76,20 @@ var geolocation = {
     * @param {Function} errorCallback      The function to call when there is an error getting the location services status info. (OPTIONAL)
     */
     getLocationServicesState:function(successCallback, errorCallback) {
+      argscheck.checkArgs('fFO', 'geolocation.getLocationServicesState', arguments);
       exec(successCallback, errorCallback, "Geolocation", "getLocationServicesState");
 
-    }
+    },
     /**
     * Asynchronously acquires the current authorization status.
     * @param {Function} successCallback    The function to call when the authorization status info is available
     * @param {Function} errorCallback      The function to call when there is an error getting the authorization status info. (OPTIONAL)
     */
     getAuthorizationStatus:function(successCallback, errorCallback) {
+      argscheck.checkArgs('fFO', 'geolocation.getAuthorizationStatus', arguments);
       exec(successCallback, errorCallback, "Geolocation", "getAuthorizationStatus");
 
-    }
+    },
     /**
    * Asynchronously acquires the current position.
    *
@@ -227,3 +230,4 @@ var geolocation = {
 };
 
 module.exports = geolocation;
+});

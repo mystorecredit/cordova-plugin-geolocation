@@ -193,8 +193,7 @@
 - (void)getAuthorizationStatus:(CDVInvokedUrlCommand*)command
 {
     NSString *authorizationStatus;
-    switch ([self.locationManager authorizationStatus]) {
-        case kCLAuthorizationStatusAuthorized:
+    switch ([CLLocationManager authorizationStatus]) {
         case kCLAuthorizationStatusAuthorizedAlways:
         case kCLAuthorizationStatusAuthorizedWhenInUse:
             authorizationStatus = @"Authorized";
@@ -210,12 +209,12 @@
             authorizationStatus = @"Unauthorized";
             break;
     }
-    [self.commandDelegate sendPluginResult[CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsString:authorizationStatus]];
+    [self.commandDelegate sendPluginResult:[CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsString:authorizationStatus] callbackId:command.callbackId];
 }
 - (void)getLocationServicesState:(CDVInvokedUrlCommand*)command;
 {
-    [self.commandDelegate sendPluginResult[CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsBool:[self.locationManager locationServicesEnabled]]];
-    
+    [self.commandDelegate sendPluginResult:[CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsBool:[CLLocationManager locationServicesEnabled]] callbackId:command.callbackId];
+
 }
 - (void)getLocation:(CDVInvokedUrlCommand*)command
 {
