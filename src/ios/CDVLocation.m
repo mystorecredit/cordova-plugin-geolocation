@@ -132,7 +132,7 @@
         return;
     }
 #endif
-    
+
     // Tell the location manager to start notifying us of location updates. We
     // first stop, and then start the updating to ensure we get at least one
     // update, even if our location did not change.
@@ -190,7 +190,33 @@
         [self _stopLocation];
     }
 }
+- (void)getAuthorizationStatus:(CDVInvokedUrlCommand*)command
+{
+    NSString *authorizationStatus;
+    switch ([self.locationManager authorizationStatus]) {
+        case kCLAuthorizationStatusAuthorized:
+        case kCLAuthorizationStatusAuthorizedAlways:
+        case kCLAuthorizationStatusAuthorizedWhenInUse:
+            authorizationStatus = @"Authorized";
+            break;
+        case kCLAuthorizationStatusNotDetermined:
+            authorizationStatus = @"NotDetermined";
+            break;
+        case kCLAuthorizationStatusRestricted:
+            authorizationStatus = @"Unauthorized";
 
+            break;
+        default:
+            authorizationStatus = @"Unauthorized";
+            break;
+    }
+    [self.commandDelegate sendPluginResult[CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsString:authorizationStatus]];
+}
+- (void)getLocationServicesState:(CDVInvokedUrlCommand*)command;
+{
+    [self.commandDelegate sendPluginResult[CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsBool:[self.locationManager locationServicesEnabled]]];
+    
+}
 - (void)getLocation:(CDVInvokedUrlCommand*)command
 {
     NSString* callbackId = command.callbackId;

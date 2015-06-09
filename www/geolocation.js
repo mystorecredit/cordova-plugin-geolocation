@@ -70,6 +70,24 @@ function createTimeout(errorCallback, timeout) {
 var geolocation = {
     lastPosition:null, // reference to last known (cached) position returned
     /**
+    * Asynchronously acquires the current location services status.
+    * @param {Function} successCallback    The function to call when the location services status info is available
+    * @param {Function} errorCallback      The function to call when there is an error getting the location services status info. (OPTIONAL)
+    */
+    getLocationServicesState:function(successCallback, errorCallback) {
+      exec(successCallback, errorCallback, "Geolocation", "getLocationServicesState");
+
+    }
+    /**
+    * Asynchronously acquires the current authorization status.
+    * @param {Function} successCallback    The function to call when the authorization status info is available
+    * @param {Function} errorCallback      The function to call when there is an error getting the authorization status info. (OPTIONAL)
+    */
+    getAuthorizationStatus:function(successCallback, errorCallback) {
+      exec(successCallback, errorCallback, "Geolocation", "getAuthorizationStatus");
+
+    }
+    /**
    * Asynchronously acquires the current position.
    *
    * @param {Function} successCallback    The function to call when the position data is available
